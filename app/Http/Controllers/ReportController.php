@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ReportExport;
+use App\Exports\ReportSpecificExport;
 use App\Exports\UsersExport;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -10,6 +12,7 @@ use Illuminate\Support\Facades\Storage;
 use Livewire\WithPagination;
 use Maatwebsite\Excel\Facades\Excel;
 use Dompdf\Dompdf;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ReportController extends Controller
 {
@@ -62,44 +65,25 @@ class ReportController extends Controller
     {
         $type = $_GET['fileType'];
 
+        abort_if(!in_array($type, ['csv', 'xlsx', 'pdf']), 404);
+
         if ($dID == 0) {
             $order = $this->search->allReport($dateby, $fdate, $tdate);
-            $filename = 'allDistributor' . '-from=' . $fdate . '-to=' . $tdate . '-Report';
+            $filename = 'AllDistributor' . '-From' . $fdate . '-To' . $tdate . '-Report.' . $type;
+            if ($type == 'pdf') {
+                return Excel::download(new UsersExport($order['as']), $filename);
+            } else {
+                return Excel::download(new UsersExport($order['as']), $filename);
+            }
         } else {
-            //
-            $filename = 'ID=' . $dID . '-from=' . $fdate . '-to=' . $tdate . '-Report';
+            $order = $this->search->disSpecific($dID, $dateby, $fdate, $tdate);
+            $filename = 'DistributorID' . $dID . '-From' . $fdate . 'To' . $tdate . '-Report.' . $type;
+
+            if ($type == 'pdf') {
+                return Excel::download(new ReportSpecificExport($order['as']), $filename);
+            } else {
+                return Excel::download(new ReportSpecificExport($order['as']), $filename);
+            }
         }
-
-        if ($type == 'pdf')
-            // {
-            //     $dompdf = new Dompdf();
-            // }
-            return Excel::download(new UsersExport($order['as']), $filename . '.pdf');
-        elseif ($type == 'exe')
-            return Excel::download(new UsersExport($order['as']), $filename . '.xlsx');
-        elseif ($type == 'csv')
-            return Excel::download(new UsersExport($order['as']), $filename . '.csv');
-        else {
-            return abort(404);
-        }
-        //return Excel::download(new UsersExport($order['as']), 'users.csv');
-        // return dd($order['as']);
-    }
-
-    public function export()
-    {
-        $fileType = $_GET['fileType'];
-        return dd($this->orderData);
-
-
-        // if ($type == 'pdf')
-        //     return Excel::download(new UsersExport, 'users.pdf');
-        // elseif ($type == 'exe')
-        //     return Excel::download(new UsersExport, 'users.pdf');
-        // elseif ($type == 'csv')
-        //     return Excel::download(new UsersExport, 'users.csv');
-        // else {
-        //     return abort(404);
-        // }
     }
 }

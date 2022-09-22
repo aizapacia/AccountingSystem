@@ -105,8 +105,6 @@
         <!-- Main Script -->
         <script src="{{ url('/template/js/script.js') }}"></script>
 
-        <!--ICon-->
-        <script src="https://kit.fontawesome.com/3d127ccd55.js" crossorigin="anonymous"></script>
     </div>
 </body>
 

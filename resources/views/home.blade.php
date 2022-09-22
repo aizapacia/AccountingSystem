@@ -7,8 +7,7 @@
         <div class="row justify-content-between align-items-center">
             <div class="col-lg-7 text-center text-lg-left">
                 <h1 class="mb-4">Accounting System</h1>
-                <p class="mb-4">Lorem ipsum dolor amet, consetetur sadiffspscing elitr, diam nonumy invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua At.</p>
-
+                <p></p>
 
                 <div class="d-flex justify-content-center">
                     <div class="btn-group mb-3" role="group" aria-label="Basic example">

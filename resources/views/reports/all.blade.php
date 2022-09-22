@@ -16,7 +16,7 @@
                 ]) }}">
                 <select name="fileType" id="fileType" class="select-dl" required>
                     <option value="pdf">pdf</option>
-                    <option value="exe">exe</option>
+                    <option value="xlsx">xlsx</option>
                     <option value="csv">csv</option>
                 </select>
                 <button class="select-btn" type="submit">
@@ -106,5 +106,4 @@
             'todate' => $todate]
             )->links()}}
     </div>
-
 </div>

@@ -32,5 +32,3 @@ Route::get('/reportFilter', [ReportController::class, 'search'])->name('reportSe
 Route::get('/download/{dID}/{dateby}/{fdate}/{tdate}', [ReportController::class, 'download'])->name('download');
 
 Route::get('/distributor', [DistributorController::class, 'index'])->name('distributor');
-
-Route::get('/users/export', [ReportController::class, 'export'])->name('exportR');

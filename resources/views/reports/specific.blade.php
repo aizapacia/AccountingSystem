@@ -16,14 +16,21 @@
             </p>
         </div>
         <div class="col-md-6 d-flex justify-content-end">
-            <select name="dl" id="" class="select-dl">
-                <option>pdf</option>
-                <option value="exe">exe</option>
-                <option value=""></option>
-            </select>
-            <button class="select-btn">
-                Download
-            </button>
+            <form type="get" action="{{ route('download', [
+                'dID' => $dID,
+                'dateby' => $dateby,
+                'fdate' => $fromdate,
+                'tdate' => $todate
+                ]) }}">
+                <select name="fileType" id="fileType" class="select-dl" required>
+                    <option value="pdf">pdf</option>
+                    <option value="xlsx">xlsx</option>
+                    <option value="csv">csv</option>
+                </select>
+                <button class="select-btn" type="submit">
+                    Download
+                </button>
+            </form>
         </div>
     </div>
     <!-- main content -->

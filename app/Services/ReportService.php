@@ -45,7 +45,7 @@ class ReportService
     public function daily()
     {
         try {
-            $datenow = Carbon::now();
+            $datenow = date_format(Carbon::now(), 'Y-m-d');
 
             $order_log = DB::table('distributor_order_log')
                 ->select(
@@ -62,7 +62,7 @@ class ReportService
                     'users.phone',
                 )
                 ->join('users', 'users.id', '=', 'distributor_order_log.distributor_id')
-                ->where('distributor_order_log.order_date', $datenow)
+                ->where('distributor_order_log.order_date', 'like', $datenow . '%')
                 ->paginate(10);
 
             if (!empty($order_log['total'])) {
